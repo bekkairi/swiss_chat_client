@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: client-service
+  labels:
+    app: client-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: client-service
+  template:
+    metadata:
+      labels:
+        app: client-service
+    spec:
+      containers:
+        - name: client-service
+          image: registry.digitalocean.com/mansourrepo/client@sha256:a76a545024e6c86671dc7e342f3b2117c07f00298f50ca95f83dbbc6691d1f3b
+          ports:
+            - containerPort: 8080
+          env:
+            - name: spring.profiles.active
+              value: dev
+      imagePullSecrets:
+      - name: mansourrepo
